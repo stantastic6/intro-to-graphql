@@ -25,7 +25,6 @@ const newProduct = (_, args, ctx) => {
     throw new AuthenticationError()
   }
 
-  // use this fake ID for createdBy for now until we talk auth
   const createdBy = ctx.user._id
   return Product.create({ ...args.input, createdBy })
 }
