@@ -18,9 +18,8 @@ type Product {
   type: ProductType!
   description: String
   liquidCooled: Boolean
-  bikeType: BikeType
   range: String
-  createdBy: User!
+  bikeType: BikeType
 }
 
 input NewProductInput {
