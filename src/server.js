@@ -6,6 +6,7 @@ import { connect } from './db'
 import product from './types/product/product.resolvers'
 import coupon from './types/coupon/coupon.resolvers'
 import user from './types/user/user.resolvers'
+import { authenticate } from './utils/auth'
 
 const types = ['product', 'coupon', 'user']
 
@@ -18,11 +19,12 @@ export const start = async () => {
   const schemaTypes = await Promise.all(types.map(loadTypeSchema))
 
   const server = new ApolloServer({
-    typeDefs: [rootSchema],
-    resolvers: {},
-    context({ req }) {
-      // use the authenticate function from utils to auth req, its Async!
-      return { user: null }
+    typeDefs: [rootSchema, ...schemaTypes],
+    resolvers: merge({}, product, coupon, user),
+    async context({ req }) {
+      const authedUser = await authenticate(req)
+
+      return { user: authedUser }
     }
   })
 

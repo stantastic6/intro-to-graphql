@@ -21,15 +21,9 @@ describe('Product schema', () => {
   })
   describe('lesson-2:', () => {
     test('Product has base fields', () => {
-      let type = schema.types.find(t => {
+      let type = schema.interfaces.find(t => {
         return t.name === 'Product'
       })
-
-      if (!type && process.env.GQL_LESSON !== 'lesson-2') {
-        type = schema.interfaces.find(t => {
-          return t.name === 'Product'
-        })
-      }
 
       expect(type).toBeTruthy()
 
@@ -37,7 +31,7 @@ describe('Product schema', () => {
         name: 'String!',
         price: 'Float!',
         image: 'String!',
-        type: 'ProductType!',
+        type: 'String!',
         createdBy: 'User!',
         description: 'String',
         liquidCooled: 'Boolean',
